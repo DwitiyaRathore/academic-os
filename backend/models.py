@@ -27,3 +27,11 @@ class Topic(Base):
     is_complete = Column(Boolean, default=False)
     subject_id = Column(Integer, ForeignKey("subjects.id"))
     subject = relationship("Subject", back_populates="topics")
+
+class TimetableSlot(Base):
+    __tablename__ = "timetable_slots"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    date = Column(String, nullable=False)
+    subject_name = Column(String, nullable=False)
+    hours = Column(Integer, nullable=False)

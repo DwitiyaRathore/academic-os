@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers import auth, subjects
+from routers import auth, subjects, timetable
 
 Base.metadata.create_all(bind=engine)
 
@@ -15,8 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-app.include_router(subjects.router, tags=["Subjects & Topics"])
+app.include_router(auth.router)
+app.include_router(subjects.router)
+app.include_router(timetable.router)
 
 @app.get("/")
 def root():
