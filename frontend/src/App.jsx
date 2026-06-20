@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import SyllabusPage from './pages/SyllabusPage'
 import TimetablePage from './pages/TimetablePage'
+import QuizPage from './pages/QuizPage'
 import Dashboard from './pages/Dashboard'
 
 function PrivateRoute({ children }) {
@@ -27,6 +28,7 @@ function App() {
           <Route index element={<TimetablePage />} />
           <Route path="timetable" element={<TimetablePage />} />
           <Route path="syllabus" element={<SyllabusPage />} />
+          <Route path="quiz" element={<QuizPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

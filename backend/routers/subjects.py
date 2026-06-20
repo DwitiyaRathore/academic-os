@@ -2,16 +2,23 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from database import get_db
-from models import Subject, Topic
+from models import Subject, Topic, User
 from auth import decode_token
 from fastapi.security import OAuth2PasswordBearer
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
-def get_current_user_id(token: str = Depends(oauth2_scheme)):
-    payload = decode_token(token)
-    return int(payload["sub"])
+def get_current_user_id(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    try:
+        payload = decode_token(token)
+        email = payload.get("sub")
+        user = db.query(User).filter(User.email == email).first()
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        return user.id
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 # --- Subject Models ---
 class SubjectRequest(BaseModel):

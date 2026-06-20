@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers import auth, subjects, timetable
+from routers import auth, subjects, timetable, ai
 
 Base.metadata.create_all(bind=engine)
 
@@ -18,7 +18,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(subjects.router)
 app.include_router(timetable.router)
-
+app.include_router(ai.router)
 @app.get("/")
 def root():
     return {"message": "Academic OS backend is running!"}

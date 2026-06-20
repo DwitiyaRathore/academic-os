@@ -42,6 +42,12 @@ function Dashboard() {
           >
             📚 Syllabus Tracker
           </Link>
+          <Link
+            to="/quiz"
+            className="flex items-center gap-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 mb-2"
+          >
+            🧠 Quiz
+          </Link>
         </nav>
 
         <div className="p-4 border-t">
